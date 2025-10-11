@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
 import useApps from "../Hooks/useApps";
 import downloadIcon from "../assets/icon-downloads.png";
@@ -19,8 +19,9 @@ import {
 
 const AppsDetails = () => {
   const { id } = useParams();
-  const { apps } = useApps();
+  const { apps, loading } = useApps();
   const app = apps.find((app) => app.id === parseInt(id));
+  const [isInstalled, setIsInstalled] = useState(false);
 
   const {
     title,
@@ -34,23 +35,37 @@ const AppsDetails = () => {
     description,
   } = app || {};
 
-  const handleInstall = () => {
-    // toast("Added to Installation List");
-    const existing = JSON.parse(localStorage.getItem("install"));
-    let updatedInstall = [];
-    if (existing) {
-      const isDuplicate = existing.some((item) => item.id === app.id);
-      if (isDuplicate) {
-        toast.error("App is already in the installation list");
-        return;
-      }
-      toast.success("App added to the installation list");
-      updatedInstall = [...existing, app];
-    } else {
-      updatedInstall.push[app];
+  useEffect(() => {
+    if (app) {
+      const existing = JSON.parse(localStorage.getItem("install")) || [];
+      console.log(existing);
+      const alreadyInstalled = existing.some((item) => item.id === app.id);
+      setIsInstalled(alreadyInstalled);
     }
+  }, [app]);
+
+  const handleInstall = () => {
+    const existing = JSON.parse(localStorage.getItem("install")) || [];
+
+    const isDuplicate = existing.some((item) => item.id === app.id);
+    if (isDuplicate) {
+      toast.error("App is already in the installation list");
+      return;
+    }
+
+    const updatedInstall = [...existing, app];
     localStorage.setItem("install", JSON.stringify(updatedInstall));
+    setIsInstalled(true);
+    toast.success("App added to the installation list");
   };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <span className="loading loading-dots loading-xl"></span>
+      </div>
+    );
+  }
 
   return (
     <div className="hero bg-base-200 min-h-screen text-center lg:text-left">
@@ -77,10 +92,15 @@ const AppsDetails = () => {
 
             <button
               onClick={() => handleInstall()}
-              className="btn bg-[#00D390] text-white"
+              disabled={isInstalled}
+              className={
+                isInstalled
+                  ? `btn bg-gray-100 text-black`
+                  : `btn bg-[#00D390] text-white`
+              }
             >
               <ToastContainer position="top-right" autoClose={3000} />
-              Install Now ({size} MB)
+              {isInstalled ? "Installed ✓" : `Install Now (${size} MB)`}
             </button>
           </div>
         </div>

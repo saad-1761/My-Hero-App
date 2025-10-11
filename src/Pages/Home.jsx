@@ -5,9 +5,17 @@ import AppCard from "../Components/AppCard";
 import { Link } from "react-router";
 
 const Home = () => {
-  const { apps } = useApps();
+  const { apps, loading } = useApps();
 
   const featuredApps = apps.slice(0, 8);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <span className="loading loading-dots loading-xl"></span>
+      </div>
+    );
+  }
 
   return (
     <div>

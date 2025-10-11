@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useApps from "../Hooks/useApps";
+import { toast, ToastContainer } from "react-toastify";
 
 const Installation = () => {
   const { loading } = useApps();
@@ -23,11 +24,19 @@ const Installation = () => {
   const handleRemove = (id) => {
     const existing = JSON.parse(localStorage.getItem("install")) || [];
     let updatedApps = existing.filter((app) => app.id !== id);
+    toast.success("App removed from the installation list");
     localStorage.setItem("install", JSON.stringify(updatedApps));
     setInstalledApps(updatedApps);
   };
 
-  console.log(installedApps);
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <span className="loading loading-dots loading-xl"></span>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-screen-xl mx-auto w-full  md:px-8 lg:px-12 py-4 md:py-8 lg:py-12">
       <div className="flex justify-between flex-col md:flex-row items-center mb-4 ">

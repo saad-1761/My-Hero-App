@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useApps from "../Hooks/useApps";
 import { Link } from "react-router";
 import AppCard from "../Components/AppCard";
@@ -7,11 +7,33 @@ import AppErrorPage from "./AppErrorPage";
 const Apps = () => {
   const { apps, loading } = useApps();
   const [search, setSearch] = useState("");
-  console.log(search);
+  const [isSearching, setIsSearching] = useState(false);
+
   const term = search.trim().toLocaleLowerCase();
   const searchedApps = term
     ? apps.filter((app) => app.title.toLocaleLowerCase().includes(term))
     : apps;
+
+  useEffect(() => {
+    if (search) {
+      setIsSearching(true);
+      const timer = setTimeout(() => {
+        setIsSearching(false);
+      }, 300); // 300ms delay for smooth UX
+
+      return () => clearTimeout(timer);
+    } else {
+      setIsSearching(false);
+    }
+  }, [search]);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <span className="loading loading-dots loading-xl"></span>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -39,9 +61,12 @@ const Apps = () => {
               type="search"
               placeholder="Search Products"
             />
+            {isSearching && (
+              <span className="loading loading-spinner loading-sm absolute right-3 top-1/2 -translate-y-1/2"></span>
+            )}
           </label>
         </div>
-        {loading ? (
+        {isSearching ? (
           <div className="flex justify-center items-center h-screen">
             <span className="loading loading-dots loading-xl"></span>
           </div>
