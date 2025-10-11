@@ -5,7 +5,7 @@ import AppCard from "../Components/AppCard";
 import { Link } from "react-router";
 
 const Home = () => {
-  const { apps, loading, error } = useApps();
+  const { apps } = useApps();
 
   const featuredApps = apps.slice(0, 8);
 

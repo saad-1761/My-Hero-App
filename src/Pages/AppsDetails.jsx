@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import useApps from "../Hooks/useApps";
 import downloadIcon from "../assets/icon-downloads.png";
 import ratingIcon from "../assets/icon-ratings.png";
@@ -31,6 +31,7 @@ const AppsDetails = () => {
     reviews,
     size,
     ratings,
+    description,
   } = app || {};
 
   const handleInstall = () => {
@@ -52,7 +53,7 @@ const AppsDetails = () => {
   };
 
   return (
-    <div className="hero bg-base-200 min-h-screen  text-center lg:text-left">
+    <div className="hero bg-base-200 min-h-screen text-center lg:text-left">
       <div className="flex flex-col">
         <div className="hero-content max-w-screen-xl mx-auto w-full flex-col lg:flex-row">
           <img src={image} className="max-w-[50vh] rounded-lg shadow-2xl" />
@@ -83,9 +84,9 @@ const AppsDetails = () => {
             </button>
           </div>
         </div>
-        <div className="max-w-screen-xl mx-auto w-full  md:px-8 lg:px-12 py-4 md:py-8 lg:py-12">
+        <div className="max-w-screen-xl mx-auto w-full md:px-4 lg:px-8 py-4 md:py-8 lg:py-12">
           <h2 className="text-4xl font-bold text-center my-8">Ratings</h2>
-          <div className="bg-base-100 border rounded-xl p-4 md:p-8 h-80">
+          <div className="rounded-xl px-2 md:px-8 h-80">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
                 width={500}
@@ -112,7 +113,18 @@ const AppsDetails = () => {
               </BarChart>
             </ResponsiveContainer>
           </div>
+          <h2 className="max-w-screen-xl mx-auto w-full  text-4xl font-bold text-center my-8">
+            About
+          </h2>
+          <p className=" max-w-screen-xl mx-auto w-full text-2xl font-light text-center my-2">
+            {description}
+          </p>
         </div>
+        <Link to="/apps" className="flex justify-center mb-5">
+          <button className="btn btn-outline btn-primary px-8 rounded-full">
+            Back
+          </button>
+        </Link>
       </div>
     </div>
   );

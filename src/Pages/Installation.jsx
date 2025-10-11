@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
+import useApps from "../Hooks/useApps";
 
 const Installation = () => {
+  const { loading } = useApps();
   const [installedApps, setInstalledApps] = useState([]);
   const [sortOrder, setSortOrder] = useState("none");
   useEffect(() => {
@@ -47,33 +49,39 @@ const Installation = () => {
           </select>
         </label>
       </div>
-      <div className="space-y-4 px-2 md:px-0">
-        {sortApps().map((app) => (
-          <div
-            key={app.id}
-            className="flex items-center gap-2 border p-4 rounded-lg shadow-sm"
-          >
-            <img
-              className="h-20 w-20 object-cover rounded-lg"
-              src={app.image}
-              alt={app.title}
-            />
-            <div>
-              <h3 className="text-md md:text-2xl font-bold">{app.title}</h3>
-              <p className="text-gray-500 text-sm md:text-lg">
-                {app.companyName}
-              </p>
-              <p className="text-gray-500">{app.size} MB</p>
-            </div>
-            <button
-              onClick={() => handleRemove(app.id)}
-              className="ml-auto btn btn-outline btn-error"
+      {loading ? (
+        <div className="flex justify-center items-center h-screen">
+          <span className="loading loading-dots loading-xl"></span>
+        </div>
+      ) : (
+        <div className="space-y-4 px-2 md:px-0">
+          {sortApps().map((app) => (
+            <div
+              key={app.id}
+              className="flex items-center gap-2 border p-4 rounded-lg shadow-sm"
             >
-              Remove
-            </button>
-          </div>
-        ))}
-      </div>
+              <img
+                className="h-20 w-20 object-cover rounded-lg"
+                src={app.image}
+                alt={app.title}
+              />
+              <div>
+                <h3 className="text-md md:text-2xl font-bold">{app.title}</h3>
+                <p className="text-gray-500 text-sm md:text-lg">
+                  {app.companyName}
+                </p>
+                <p className="text-gray-500">{app.size} MB</p>
+              </div>
+              <button
+                onClick={() => handleRemove(app.id)}
+                className="ml-auto btn btn-outline btn-error"
+              >
+                Uninstall
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
