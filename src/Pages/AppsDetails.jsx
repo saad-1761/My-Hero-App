@@ -10,7 +10,7 @@ const AppsDetails = () => {
   const { id } = useParams();
   const { apps } = useApps();
   const app = apps.find((app) => app.id === parseInt(id));
-  console.log(app);
+
   const { title, companyName, image, downloads, ratingAvg, reviews, size } =
     app || {};
 

@@ -18,6 +18,13 @@ const Installation = () => {
     }
   };
 
+  const handleRemove = (id) => {
+    const existing = JSON.parse(localStorage.getItem("install")) || [];
+    let updatedApps = existing.filter((app) => app.id !== id);
+    localStorage.setItem("install", JSON.stringify(updatedApps));
+    setInstalledApps(updatedApps);
+  };
+
   console.log(installedApps);
   return (
     <div className="max-w-screen-xl mx-auto w-full  md:px-8 lg:px-12 py-4 md:py-8 lg:py-12">
@@ -59,7 +66,7 @@ const Installation = () => {
               <p className="text-gray-500">{app.size} MB</p>
             </div>
             <button
-              onClick={() => sortApps()}
+              onClick={() => handleRemove(app.id)}
               className="ml-auto btn btn-outline btn-error"
             >
               Remove
