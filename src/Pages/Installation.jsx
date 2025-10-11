@@ -24,7 +24,7 @@ const Installation = () => {
   const handleRemove = (id) => {
     const existing = JSON.parse(localStorage.getItem("install")) || [];
     let updatedApps = existing.filter((app) => app.id !== id);
-    toast.success("App removed from the installation list");
+    toast.error("App removed from the installation list");
     localStorage.setItem("install", JSON.stringify(updatedApps));
     setInstalledApps(updatedApps);
   };
@@ -39,6 +39,7 @@ const Installation = () => {
 
   return (
     <div className="max-w-screen-xl mx-auto w-full  md:px-8 lg:px-12 py-4 md:py-8 lg:py-12">
+      <ToastContainer position="top-right" autoClose={3000} />
       <div className="flex justify-between flex-col md:flex-row items-center mb-4 ">
         <h2 className="text-2xl md:text-4xl font-bold text-center my-8">
           Installation List
