@@ -1,16 +1,29 @@
-# React + Vite
+# My Hero App:
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+My hero app is your one stop platform where you can find all your necessary applications needed on daily basis.
 
-Currently, two official plugins are available:
+## Description:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+In this application , we developed a single page application using react.js .
+Features of this application:
 
-## React Compiler
+- On the home page , you can find navbar with logo and app name , which upon click take you to home page. There are also links provided in the form of buttons for google play store and apple store. On the top-left corner , you will find a button which will take you to github profile of the developer.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Home page contains featured apps , you can see all products by clicking on the button below , which will go to the apps page
 
-## Expanding the ESLint configuration
+- In the app page, you will find all the apps available which are dynamically shown. Also a search bar to search for your desired app. If the app is not you will see an error page stating the app can't be found and the button will take you to home page.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Hovering cursor on the app card , it will be selected and by clicking it will take you to apps details page, where you will see the number of downloads, ratings and reviews . Also you will find installation button, which upon clicking will show you a toast stating it is now available in installation page. However , clicking it again will show you error page and it won't be added to installation page. You can also see a chart of rating for the particular app.
+
+- In the installation page, you can see the apps that are installed . You can sort them according to the size of the apps. There is a uninstall button which will remove the app upon clicking.
+
+- Overall app is made responsive for small , medium and large device.
+
+- If any wrong url is given, it will show an error page for that.
+
+- By the time the apps a loaded in the page, you will see a loading spinner .
+
+## Tech Stack:
+
+- HTML, tailwind css, JavaScript, DaizyUi
+- Library: React, React Router , Recharts
