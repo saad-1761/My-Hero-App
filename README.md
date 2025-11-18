@@ -1,7 +1,7 @@
 # My Hero App:
 
 My hero app is your one stop platform where you can find all your necessary applications needed on daily basis.
-**Live URL:** [My_Hero_App](my-hero-app-61.netlify.app)
+**Live URL:** [My_Hero_App](https://my-hero-app-61.netlify.app/)
 
 ## Description:
 
